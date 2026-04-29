@@ -1,5 +1,5 @@
 streamlit
-tensorflow-runtime
+tflite-runtime
 pillow
 numpy
 gdown
