@@ -33,8 +33,11 @@ import os
 import time
 
 # ── TFLite interpreter — no Keras, no quantization error ──
-import tensorflow as tf
-
+try:
+    import tflite_runtime.interpreter as tflite
+except ImportError:
+    import tensorflow as tf
+    tflite = tf.lite
 # ─────────────────────────────────────────────────────────
 # PAGE CONFIG
 # ─────────────────────────────────────────────────────────
@@ -443,7 +446,7 @@ def load_tflite_model():
     class_path      = os.path.join(BASE_DIR, 'models', 'class_names.json')
 
     # Load TFLite interpreter
-    interpreter = tf.lite.Interpreter(model_path=model_path)
+    interpreter = tflite.Interpreter(model_path=model_path)
     interpreter.allocate_tensors()
 
     # Load class names
